@@ -16,7 +16,7 @@ def new_ball(space, pos):
     body.position = pos
     shape = pymunk.Circle(body, 10)
     shape.density = 1
-    shape.elasticity = 0.9
+    # shape.elasticity = 0.9
     space.add(body, shape)
     balls.append(shape)
     return space
@@ -30,6 +30,26 @@ running = True
 space = pymunk.Space()
 space.gravity = 0, 200
 
+top_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+top_segment_shape = pymunk.Segment(top_segment_body, (10, 10), (WIDTH-10, 10), 3)
+top_segment_shape.elasticity = 0.9
+space.add(top_segment_body, top_segment_shape)
+
+right_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+right_segment_shape = pymunk.Segment(right_segment_body, (WIDTH-10, 10), (WIDTH-10, HEIGHT-10), 3)
+right_segment_shape.elasticity = 0.9
+space.add(right_segment_body, right_segment_shape)
+
+bottom_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+bottom_segment_shape = pymunk.Segment(bottom_segment_body, (10, WIDTH-10), (HEIGHT-10, WIDTH-10), 3)
+bottom_segment_shape.elasticity = 0.9
+space.add(bottom_segment_body, bottom_segment_shape)
+
+left_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
+left_segment_shape = pymunk.Segment(left_segment_body, (10, 10), (10, HEIGHT-10), 3)
+left_segment_shape.elasticity = 0.9
+space.add(left_segment_body, left_segment_shape)
+
 balls = []
 
 while running:
@@ -39,6 +59,11 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             new_ball(space, event.pos)
     window.fill(BACKGROUND)
+
+    pygame.draw.line(window, BLACK, (10, 10), (WIDTH-10, 10), 3)
+    pygame.draw.line(window, BLACK, (WIDTH-10, 10), (WIDTH-10, HEIGHT-10), 3)
+    pygame.draw.line(window, BLACK, (10, WIDTH-10), (HEIGHT-10, WIDTH-10), 3)
+    pygame.draw.line(window, BLACK, (10, 10), (10, HEIGHT-10), 3)
 
     for ball in balls:
         x_position = int(ball.body.position[0])
