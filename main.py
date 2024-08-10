@@ -1,14 +1,15 @@
 import pygame
 import pymunk
+import random
 
 WIDTH = 800
 HEIGHT = 800
 FPS = 80
 
-BACKGROUND = 255, 250, 244
+BACKGROUND = (238, 247, 255)
 BLACK = (0, 0, 0)
-BlUE = (158, 221, 255)
-RED = (255, 32, 78)
+COLOURS = [(20, 63, 107), (245, 83, 83), (254, 177, 57), (246, 245, 77), (242, 102, 171), (164, 89, 209), (44, 211, 225),
+           (100, 153, 233), (158, 221, 255), (131, 111, 255), (21, 245, 186), (255, 32, 78), (5, 146, 18), (6, 208, 1)]
 
 
 def new_ball(space, pos):
@@ -19,6 +20,7 @@ def new_ball(space, pos):
     shape.elasticity = 0.9
     space.add(body, shape)
     balls.append(shape)
+    ball_colours.append(COLOURS[random.randint(0, 13)])
     return space
 
 
@@ -52,6 +54,7 @@ left_segment_shape.elasticity = 0.9
 space.add(left_segment_body, left_segment_shape)
 
 balls = []
+ball_colours = []
 
 while running:
     for event in pygame.event.get():
@@ -70,7 +73,7 @@ while running:
     for ball in balls:
         x_position = int(ball.body.position[0])
         y_position = int(ball.body.position[1])
-        pygame.draw.circle(window, RED, (x_position, y_position), 10)
+        pygame.draw.circle(window, ball_colours[balls.index(ball)], (x_position, y_position), 10)
 
     pygame.display.flip()
     clock.tick(FPS)
