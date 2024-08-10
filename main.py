@@ -16,7 +16,7 @@ def new_ball(space, pos):
     body.position = pos
     shape = pymunk.Circle(body, 10)
     shape.density = 1
-    # shape.elasticity = 0.9
+    shape.elasticity = 0.9
     space.add(body, shape)
     balls.append(shape)
     return space
@@ -28,8 +28,9 @@ clock = pygame.time.Clock()
 running = True
 
 space = pymunk.Space()
-space.gravity = 0, 200
+space.gravity = (0, 400)
 
+# create border segments
 top_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
 top_segment_shape = pymunk.Segment(top_segment_body, (10, 10), (WIDTH-10, 10), 3)
 top_segment_shape.elasticity = 0.9
@@ -60,6 +61,7 @@ while running:
             new_ball(space, event.pos)
     window.fill(BACKGROUND)
 
+    # borders (top, right, bottom, left)
     pygame.draw.line(window, BLACK, (10, 10), (WIDTH-10, 10), 3)
     pygame.draw.line(window, BLACK, (WIDTH-10, 10), (WIDTH-10, HEIGHT-10), 3)
     pygame.draw.line(window, BLACK, (10, WIDTH-10), (HEIGHT-10, WIDTH-10), 3)
