@@ -2,11 +2,11 @@ import pygame
 import pymunk
 import random
 
-WIDTH = 800
-HEIGHT = 800
-FPS = 80
+WIDTH = 600
+HEIGHT = 600
+FPS = 160
 
-BACKGROUND = (238, 247, 255)
+BACKGROUND = (202, 244, 255)
 BLACK = (0, 0, 0)
 COLOURS = [(20, 63, 107), (245, 83, 83), (254, 177, 57), (246, 245, 77), (242, 102, 171), (164, 89, 209), (44, 211, 225),
            (100, 153, 233), (158, 221, 255), (131, 111, 255), (21, 245, 186), (255, 32, 78), (5, 146, 18), (6, 208, 1)]
@@ -25,12 +25,13 @@ def new_ball(space, pos):
 
 
 pygame.init()
+pygame.display.set_caption('Ball Drop')
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 running = True
 
 space = pymunk.Space()
-space.gravity = (0, 400)
+space.gravity = (0, 200)
 
 # create border segments
 top_segment_body = pymunk.Body(body_type=pymunk.Body.STATIC)
