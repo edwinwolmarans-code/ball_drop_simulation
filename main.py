@@ -28,7 +28,6 @@ pygame.init()
 pygame.display.set_caption('Ball Drop')
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-running = True
 
 space = pymunk.Space()
 space.gravity = (0, 200)
@@ -57,39 +56,36 @@ space.add(left_segment_body, left_segment_shape)
 balls = []
 ball_colours = []
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            for _ in range(random.randint(1, 5)):
-                new_ball(space, event.pos)
-    window.fill(BACKGROUND)
 
-    # borders (top, right, bottom, left)
-    pygame.draw.line(window, BLACK, (10, 10), (WIDTH-10, 10), 3)
-    pygame.draw.line(window, BLACK, (WIDTH-10, 10), (WIDTH-10, HEIGHT-10), 3)
-    pygame.draw.line(window, BLACK, (10, WIDTH-10), (HEIGHT-10, WIDTH-10), 3)
-    pygame.draw.line(window, BLACK, (10, 10), (10, HEIGHT-10), 3)
+def main():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for _ in range(random.randint(1, 5)):
+                    new_ball(space, event.pos)
+        window.fill(BACKGROUND)
 
-    for ball in balls:
-        x_position = int(ball.body.position[0])
-        y_position = int(ball.body.position[1])
-        pygame.draw.circle(window, ball_colours[balls.index(ball)], (x_position, y_position), ball.radius)
+        # borders (top, right, bottom, left)
+        pygame.draw.line(window, BLACK, (10, 10), (WIDTH-10, 10), 3)
+        pygame.draw.line(window, BLACK, (WIDTH-10, 10), (WIDTH-10, HEIGHT-10), 3)
+        pygame.draw.line(window, BLACK, (10, WIDTH-10), (HEIGHT-10, WIDTH-10), 3)
+        pygame.draw.line(window, BLACK, (10, 10), (10, HEIGHT-10), 3)
 
-    pygame.display.flip()
-    clock.tick(FPS)
-    space.step(1/FPS)
+        for ball in balls:
+            x_position = int(ball.body.position[0])
+            y_position = int(ball.body.position[1])
+            pygame.draw.circle(window, ball_colours[balls.index(ball)], (x_position, y_position), ball.radius)
 
-pygame.quit()
+        pygame.display.flip()
+        clock.tick(FPS)
+        space.step(1/FPS)
 
-
-
-
-
+    pygame.quit()
 
 
-# Press the green button in the gutter to run the script.
-# if __name__ == '__main__':
-#     print_hi('PyCharm')
+if __name__ == '__main__':
+    main()
 
