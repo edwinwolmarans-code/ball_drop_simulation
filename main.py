@@ -13,9 +13,9 @@ COLOURS = [(20, 63, 107), (245, 83, 83), (254, 177, 57), (246, 245, 77), (242, 1
 
 
 def new_ball(space, pos):
-    body = pymunk.Body(1, 100, body_type=pymunk.Body.DYNAMIC)
+    body = pymunk.Body(0, 0, body_type=pymunk.Body.DYNAMIC)
     body.position = pos
-    shape = pymunk.Circle(body, 10)
+    shape = pymunk.Circle(body, random.randint(5, 20))
     shape.density = 1
     shape.elasticity = 0.9
     space.add(body, shape)
@@ -74,7 +74,7 @@ while running:
     for ball in balls:
         x_position = int(ball.body.position[0])
         y_position = int(ball.body.position[1])
-        pygame.draw.circle(window, ball_colours[balls.index(ball)], (x_position, y_position), 10)
+        pygame.draw.circle(window, ball_colours[balls.index(ball)], (x_position, y_position), ball.radius)
 
     pygame.display.flip()
     clock.tick(FPS)
