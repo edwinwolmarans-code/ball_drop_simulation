@@ -61,7 +61,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            new_ball(space, event.pos)
+            for _ in range(random.randint(1, 5)):
+                new_ball(space, event.pos)
     window.fill(BACKGROUND)
 
     # borders (top, right, bottom, left)
